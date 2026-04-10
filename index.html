@@ -72,7 +72,7 @@
 	<h1>Medidor de viadagem</h1>
 
 	<input type="text" id="nome" placeholder="Digite seu nome">
-	<button onclick="mostrarNome()" id="enviar">Enviar</button>
+	<button onclick="mostrarNome()">Enviar</button>
 	<output class="resposta" id="resposta"></output>
 
 	<div class="canto">
@@ -87,6 +87,8 @@
     	var queima = new Audio('Queima.mp3')
     	var beatbox = new Audio('Beat.mp3')
 		var inst = new Audio('Inst.mp3')
+
+	function mostrarNome() {
 		var nome = document.getElementById('nome').value.trim().toLowerCase()
 		var resposta = document.getElementById('resposta')
 		var audio = new Audio('redline.mp3')
@@ -95,9 +97,7 @@
 	    var sixseven = new Audio('67.mp3')
     	var gigachad = new Audio('giga-chad-theme.mp3')
 
-		var listaAudios = [queima, beatbox, inst, audio, ui, zeDaManga, sixseven, gigachad]
 
-	function mostrarNome() {
 		if (nome === '') {
 			resposta.innerHTML = 'digita'
 
@@ -234,8 +234,9 @@
 			queima.play()
 			
 		} else {
-			resposta.innerHTML = 'Você não é viado 
+			resposta.innerHTML = 'Você não é viado cara'
 		}
+	}
 	</script>
 
 
