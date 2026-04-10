@@ -270,21 +270,23 @@ if ("serviceWorker" in navigator) {
 			resposta.innerHTML = 'você deve ser completamente viado'
 			
 		} else if (nome.includes('youtube.com') || nome.includes('youtu.be')) {
-    		// 1. Pegamos o valor direto do campo para manter as letras MAIÚSCULAS
-    		var urlPura = document.getElementById('nome').value.trim();
-    		var id = "";
+    		// Pegamos o valor original DIRETO do input para manter as letras MAIÚSCULAS
+    		var urlOriginal = document.getElementById('nome').value.trim();
+    		var videoId = "";
 
-    		// 2. Extraímos o ID (o código de 11 letras do vídeo)
-    		if (urlPura.includes('v=')) {
-    		    id = urlPura.split('v=')[1].split('&')[0];
-    		} else {
-    		    id = urlPura.split('/').pop().split('?')[0];
-    		}
+    	if (urlOriginal.includes('v=')) {
+   		     // Pega o ID após 'v=' e remove qualquer parâmetro após '&'
+   		     videoId = urlOriginal.split('v=')[1].split('&')[0];
+   		} else {
+    		    // Para links curtos (youtu.be/ID)
+    		    videoId = urlOriginal.split('/').pop().split('?')[0];
+    	}
 
-    		// 3. Montamos o link garantindo a barra "/" antes do ID
-    		var urlEmbed = "https://youtube.com" + id;
+    		// A barra "/" depois de 'embed' é OBRIGATÓRIA para não dar erro de IP
+    		var linkEmbed = "https://youtube.com" + videoId;
     
-    		resposta.innerHTML = "Vídeo detectado:<br><iframe width='100%' height='200' src='" + urlEmbed + "' frameborder='0' allowfullscreen style='margin-top:10px; border-radius:8px;'></iframe>";
+    		resposta.innerHTML = "Vídeo detectado:<br><iframe width='100%' height='215' src='" + linkEmbed + "' frameborder='0' allowfullscreen style='margin-top:10px; border-radius:8px;'></iframe>";
+
 
 	} else {
 			resposta.innerHTML = 'Você não é viado cara'
