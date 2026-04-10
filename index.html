@@ -88,6 +88,10 @@
 	var ui = new Audio('ui.mp3')
 	var zeDaManga = new Audio('ze da manga.mp3')
 	var sixseven = new Audio('67.mp3')
+	var gigachad = new Audio('giga-chad-them.mp3')
+	var queima = new Audio('ele-queima-ou-nao-queima-remix.mp3')
+	var aimeucuzinho = new Audio('ai-meu-cxzinhx.mp3')
+	var beatbox = new Audio('')
 
 	function mostrarNome() {
 		var nome = document.getElementById('nome').value.trim().toLowerCase()
@@ -103,18 +107,22 @@
 
 		} else if (nome === 'manoel') {
 			resposta.innerHTML = 'Você foi quem criou isso aqui'
-
+			gigachad.currentTime = 0
+			gigachad.play()
+			
 		} else if (nome === 'ana júlia') {
 			resposta.innerHTML = 'Não cite esse nome, por favor'
 
 		} else if (nome === 'gustavo') {
 			resposta.innerHTML = 'Esse cara é muito é massa, né nao'
+			beatbox.currentTime = 0
+			beatbox.play()
 
 		} else if (nome === 'anna júlia') {
 			resposta.innerHTML = 'essa é aquela música la dos los hermanos, acho foda'
 
 		} else if (nome === 'davi guilherme') {
-			resposta.innerHTML = 'não consegui calcular, é muito'
+			resposta.innerHTML = '<img src="reverso.png" width="200">'
 
 		} else if (nome === 'miguel') {
 			resposta.innerHTML = 'qual deles'
@@ -199,6 +207,18 @@
 			zeDaManga.currentTime = 0
 			zeDaManga.play()
 		
+		} else if (nome === 'gulherme') {
+			resposta.innerHTML = 'Tu é foda'
+			gigachad.currentTime = 0
+			gigachas.play()
+		} else if (nome === 'kaique') {
+			resposta.innerHTML = 'Tu é daora'
+			beatbox.currentTime = 0
+			beatbox.play()
+		} else if (nome === 'matheus') {
+			resposta.innerHTML = 'Você é o maior viado, gay e o mais merda que ja pisou nessa terra<br><video src="mathues.mp4" style="display: block; margin: auto;">'
+			aimeucuzinho.currentTime = 0
+			aimeucuzinho.play()
 		} else {
 			resposta.innerHTML = 'Você não é viado cara'
 		}
