@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Medidor de Viadagem</title>
+
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f0f0f0;
+			display: flex;
+			flex-direction: column;
+			gap: 12px;
+			max-width: 320px;
+			margin: 0 auto;
+			min-height: 100vh;
+			justify-content: center;
+			padding: 30px;
+			box-sizing: border-box;
+			text-align: center;
+		}
+
+		h1 {
+			font-family: "Comic Sans MS", cursive;
+			font-size: 1.8rem;
+			margin-bottom: 10px;
+		}
+
+		input, select, button, output {
+			font-size: 1rem;
+			padding: 10px;
+			border: 1px solid #ccc;
+			border-radius: 8px;
+		}
+
+		button {
+			cursor: pointer;
+			background-color: #2b8cff;
+			color: white;
+			border: none;
+		}
+
+		button:hover {
+			background-color: #1a6ed7;
+		}
+
+		output.resposta {
+			min-height: 36px;
+			display: block;
+			line-height: 1.4;
+			background-color: #f9f9f9;
+			color: #202020;
+			border: 1px solid #bbb;
+			padding: 18px;
+			white-space: pre-wrap;
+		}
+
+		.canto {
+			position: fixed;
+			bottom: 10px;
+			left: 10px;
+			font-size: 0.8rem;
+			color: #555;
+			opacity: 0.7;
+		}
+	</style>
+</head>
+
+<body>
+
+	<h1>Medidor de viadagem</h1>
+
+	<input type="text" id="nome" placeholder="Digite seu nome">
+	<button onclick="mostrarNome()">Enviar</button>
+	<output class="resposta" id="resposta"></output>
+
+	<div class="canto">
+		Versão 1.0.5 - Novos nomes adicionados e bugs corrigidos<br>
+		Criado originalmente por Manoel, editado por Gustavo
+	</div>
+
+	<footer>
+		<p>&copy; Manoel e Gustavo todos os direitos reservados</p>
+	</footer>
+	<script>
+	var audio = new Audio('redline.mp3')
+	var ui = new Audio('ui.mp3')
+	var zeDaManga = new Audio('ze da manga.mp3')
+	var sixseven = new Audio('67.mp3')
+
+	function mostrarNome() {
+		var nome = document.getElementById('nome').value.trim().toLowerCase()
+		var resposta = document.getElementById('resposta')
+
+		if (nome === '') {
+			resposta.innerHTML = 'digita'
+
+		} else if (nome === 'arthur') {
+			resposta.innerHTML = 'Você é muito viado e dá a bunda<br><img src="arthur.gif">'
+			arthur.currentTime = 0
+			arthur.play()
+
+		} else if (nome === 'manoel') {
+			resposta.innerHTML = 'Você foi quem criou isso aqui'
+
+		} else if (nome === 'ana júlia') {
+			resposta.innerHTML = 'Não cite esse nome, por favor'
+
+		} else if (nome === 'gustavo') {
+			resposta.innerHTML = 'Esse cara é muito é massa, né nao'
+
+		} else if (nome === 'anna júlia') {
+			resposta.innerHTML = 'essa é aquela música la dos los hermanos, acho foda'
+
+		} else if (nome === 'davi guilherme') {
+			resposta.innerHTML = 'não consegui calcular, é muito'
+
+		} else if (nome === 'miguel') {
+			resposta.innerHTML = 'qual deles'
+
+		} else if (nome === 'duda') {
+			resposta.innerHTML = 'é um pouco complicado calcular viadagem de mulher, se é que isso é possivel'
+
+		} else if (nome === 'maria eduarda') {
+			resposta.innerHTML = 'é um pouco complicado calcular viadagem de mulher, se é que isso é possivel'
+
+		} else if (nome === 'nathan') {
+			resposta.innerHTML = 'tratador de arthur gomes'
+
+		} else if (nome === 'nycolle') {
+			resposta.innerHTML = 'lesbica'
+
+		} else if (nome === 'aylla') {
+			resposta.innerHTML = 'deve ter, não sei'
+
+		} else if (nome === 'não') {
+			resposta.innerHTML = 'ent blz ent'
+
+		} else if (nome === 'ana carolina') {
+			resposta.innerHTML = 'Vou saber irmão'
+
+		} else if (nome === 'enzy') {
+			resposta.innerHTML = 'esse caba fez o mic mayhem ele é massa'
+			audio.currentTime = 0
+			audio.play()
+
+		} else if (nome === 'ricardo') {
+			resposta.innerHTML = 'nem um pouco gay'
+
+		} else if (nome === 'carlos') {
+			resposta.innerHTML = '👁'
+
+		} else if (nome === 'vinícius') {
+			resposta.innerHTML = 'não sei, vou perguntar pra ele depois'
+
+		} else if (nome === 'joão lucas') {
+			resposta.innerHTML = 'parece esse cara aí<br><img src="joaolucas.png" width="200">'
+
+		} else if (nome === 'sthefany') {
+			resposta.innerHTML = '404 - Viadagem não encontrada'
+
+		} else if (nome === 'victor') {
+			resposta.innerHTML = 'ele não é'
+
+		} else if (nome === 'maria clara') {
+			resposta.innerHTML = 'maria sapatão'
+
+		} else if (nome === 'miguel lucena') {
+			resposta.innerHTML = 'ta funcionando, mas não sei o que escrever aqui'
+
+		} else if (nome === 'ana') {
+			resposta.innerHTML = 'qual delas'
+
+		} else if (nome === 'clara') {
+			resposta.innerHTML = 'beijo do douglas'
+			ui.currentTime = 0
+			ui.play()
+
+		} else if (nome === 'nicolas') {
+			resposta.innerHTML = 'ex de sapatonas (kv)'
+
+		} else if (nome === '67') {
+			resposta.innerHTML = 'YOOOOOOOOOOOO<br><img src="sixseven.jpg" width="200">'
+			sixseven.currentTime = 0
+			sixseven.play()
+
+	    } else if (nome === 'ana clara') {
+			resposta.innerHTML = 'me responde uma coisa, oque te leva a escrever ela sendo que ela nem ta mais na escola? pq tipo, o propósito disso é zoar os alunos da escola, principalmente da sala, e ela nem ta mais lá, então a menos que ela volte pra escola não vai ter nada dela aqui, entendeu?'		
+		
+		} else if (nome === 'douglas') {
+			resposta.innerHTML = 'beijo da clara'
+			ui.currentTime = 0
+			ui.play()
+			
+		
+		} else if (nome === 'viado') {
+			resposta.innerHTML = 'se tu se chama viado, tu é viado, né?'
+			zeDaManga.currentTime = 0
+			zeDaManga.play()
+		
+		} else {
+			resposta.innerHTML = 'Você não é viado cara'
+		}
+	}
+	</script>
+
+
+</body>
+</html>
