@@ -98,12 +98,13 @@ if ("serviceWorker" in navigator) {
 		<p>&copy; Manoel e Gustavo todos os direitos reservados</p>
 	</footer>
 	<script>
-    	var queima = new Audio('Queima.mp3')
-    	var beatbox = new Audio('Beat.mp3')
-		var inst = new Audio('Inst.mp3')
+
 
 	function mostrarNome() {
-
+		
+		var queima = new Audio('Queima.mp3')
+    	var beatbox = new Audio('Beat.mp3')
+		var inst = new Audio('Inst.mp3')
 		var nome = document.getElementById('nome').value.trim().toLowerCase()
 		var resposta = document.getElementById('resposta')
 		var audio = new Audio('redline.mp3')
@@ -113,20 +114,13 @@ if ("serviceWorker" in navigator) {
     	var gigachad = new Audio('giga-chad-theme.mp3')
 		var ph = new Audio('PH.mp3')
 		var annajulia = new Audio('Los hermanos - Anna Júlia - Los Hermanos (youtube).mp3.mp3')
+		var audios = [queima, beatbox, inst, audio, ui, zeDaManga, sixseven, gigachad, ph, annajulia]
 
 
 		if (nome === '') {
-			resposta.innerHTML = 'digita'
-			queima.stop()
-			gigachad.stop()
-			audio.stop()
-			ui.stop()
-			zeDaManga.stop()
-			inst.stop()
-			beatbox.stop()
-			annajulia.stop()
-			sixseven.stop()
-			ph.stop()
+			resposta.innerHTML = 'digita(parei os audios)'
+			audios.pause()
+			audios.currentTime = 0
 
 		} else if (nome === 'arthur') {
 			resposta.innerHTML = 'Você é muito viado e dá a bunda<br><img src="arthur.gif" style="display: block; margin: auto;">'
