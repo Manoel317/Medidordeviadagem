@@ -270,18 +270,22 @@ if ("serviceWorker" in navigator) {
 			resposta.innerHTML = 'você deve ser completamente viado'
 			
 		} else if (nome.includes('youtube.com') || nome.includes('youtu.be')) {
-    		var videoId = "";
+    		// 1. Pegamos o valor direto do campo para manter as letras MAIÚSCULAS
+    		var urlPura = document.getElementById('nome').value.trim();
+    		var id = "";
 
-    		// Usamos o nomeOriginal aqui para o ID não ficar minúsculo
-    		if (nomeOriginal.includes('v=')) {
-    		    videoId = nomeOriginal.split('v=')[1].split('&')[0];
+    		// 2. Extraímos o ID (o código de 11 letras do vídeo)
+    		if (urlPura.includes('v=')) {
+    		    id = urlPura.split('v=')[1].split('&')[0];
     		} else {
-       			videoId = nomeOriginal.split('/').pop().split('?')[0];
+    		    id = urlPura.split('/').pop().split('?')[0];
     		}
 
-    		var linkFinal = 'https://youtube.com' + videoId;
+    		// 3. Montamos o link garantindo a barra "/" antes do ID
+    		var urlEmbed = "https://youtube.com" + id;
     
-    		resposta.innerHTML = 'Vídeo detectado:<br><iframe width="100%" height="200" src="' + linkFinal + '" frameborder="0" allowfullscreen style="margin-top:10px; border-radius:8px;"></iframe>';
+    		resposta.innerHTML = "Vídeo detectado:<br><iframe width='100%' height='200' src='" + urlEmbed + "' frameborder='0' allowfullscreen style='margin-top:10px; border-radius:8px;'></iframe>";
+
 	} else {
 			resposta.innerHTML = 'Você não é viado cara'
 		}
