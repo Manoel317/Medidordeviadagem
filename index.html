@@ -111,6 +111,7 @@ if ("serviceWorker" in navigator) {
 	    var sixseven = new Audio('67.mp3')
     	var gigachad = new Audio('giga-chad-theme.mp3')
 		var ph = new Audio('PH.mp3')
+		var annajulia = new Audio('Los hermanos - Anna Júlia - Los Hermanos (youtube).mp3.mpeg')
 
 
 		if (nome === '') {
@@ -136,6 +137,8 @@ if ("serviceWorker" in navigator) {
 
 		} else if (nome === 'anna júlia') {
 			resposta.innerHTML = 'essa é aquela música la dos los hermanos, acho foda'
+			annajulia.currentTime = 0
+			annajulia.play()
 
 		} else if (nome === 'davi guilherme') {
 			resposta.innerHTML = '<img src="UNO-Reverse-Card-PNG-Image-File.png" width="200">'
