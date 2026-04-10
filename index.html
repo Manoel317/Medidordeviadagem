@@ -119,16 +119,10 @@ if ("serviceWorker" in navigator) {
 
 		if (nome === '') {
 			resposta.innerHTML = 'digita(parei os audios)'
-			audios.pause()
-			audios.currentTime = 0
+			pause()
 			function pararaudio(index) {
-
- 				 faixas.forEach(a => {
    				 a.pause();
    				 a.currentTime = 0;
- 			 });
-				
-			 audios[index].pause();
 			}
 
 		} else if (nome === 'arthur') {
