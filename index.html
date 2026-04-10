@@ -269,23 +269,24 @@ if ("serviceWorker" in navigator) {
 			resposta.innerHTML = 'você deve ser completamente viado'
 			
 		} else if (nome.includes('youtube.com') || nome.includes('youtu.be')) {
-    		// Pegamos o valor direto do input para não perder as letras maiúsculas
-    		let urlOriginal = document.getElementById('nome').value.trim();
-    		let videoId = "";
+    		// 1. Pegamos o valor original para manter as letras MAIÚSCULAS do ID
+    		var urlOriginal = document.getElementById('nome').value.trim();
+    		var videoId = "";
 
+		    // 2. Extraímos o ID do vídeo
     		if (urlOriginal.includes('v=')) {
         		videoId = urlOriginal.split('v=')[1].split('&')[0];
     		} else {
-        		videoId = urlOriginal.split('/').pop().split('?')[0];
+    		    videoId = urlOriginal.split('/').pop().split('?')[0];
     		}
 
-    		// ATENÇÃO: Use a CRASE (tecla ao lado do P ou abaixo do ESC) para envolver o HTML
-    		resposta.innerHTML = `Vídeo detectado:<br>
-        		<iframe width="100%" height="200" 
-            		src="https://youtube.com{videoId}" 
-            		frameborder="0" allowfullscreen 
-            		style="margin-top:10px; border-radius:8px;">
-        		</iframe>`;
+    		// 3. Montamos o HTML somando os textos para evitar erro de aspas/crase
+    		var linkEmbed = "https://youtube.com" + videoId;
+    
+    		resposta.innerHTML = "Vídeo detectado:<br>" + 
+    		    "<iframe width='100%' height='200' src='" + linkEmbed + "' " +
+    		    "frameborder='0' allowfullscreen style='margin-top:10px; border-radius:8px;'></iframe>";
+
 	} else {
 			resposta.innerHTML = 'Você não é viado cara'
 		}
