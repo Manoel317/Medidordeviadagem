@@ -270,18 +270,15 @@ if ("serviceWorker" in navigator) {
 			resposta.innerHTML = 'você deve ser completamente viado'
 			
 		} else if (nome.includes('youtube.com') || nome.includes('youtu.be')) {
-   		 	// 1. Pegamos o valor direto do input (SEM toLowerCase) para as letras não mudarem
-   		 	var urlOriginal = document.getElementById('nome').value.trim();
-   		 	var videoId = "";
+    		var videoId = "";
 
-   		 	// 2. Extraímos o ID do vídeo (com correção para não faltar a barra)
-    		if (urlOriginal.includes('v=')) {
-        		videoId = urlOriginal.split('v=')[1].split('&')[0];
-    	} else {
-        		videoId = urlOriginal.split('/').pop().split('?')[0];
-    	}
+    		// Usamos o nomeOriginal aqui para o ID não ficar minúsculo
+    		if (nomeOriginal.includes('v=')) {
+    		    videoId = nomeOriginal.split('v=')[1].split('&')[0];
+    		} else {
+       			videoId = nomeOriginal.split('/').pop().split('?')[0];
+    		}
 
-    		// 3. Montamos o link usando aspas simples e o sinal de + (mais seguro contra erros de IP)
     		var linkFinal = 'https://youtube.com' + videoId;
     
     		resposta.innerHTML = 'Vídeo detectado:<br><iframe width="100%" height="200" src="' + linkFinal + '" frameborder="0" allowfullscreen style="margin-top:10px; border-radius:8px;"></iframe>';
