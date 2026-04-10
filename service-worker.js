@@ -1,14 +1,12 @@
-const CACHE_NAME = "medidor-site-v2";
+const CACHE_NAME = "medidor-site-v1";
 
 const FILES_TO_CACHE = [
   "/",
   "/index.html",
-
   "/arthur.gif",
   "/joaolucas.png",
   "/sixseven.jpg",
   "/Matheus .mov",
-
   "/67.mp3",
   "/Beat.mp3",
   "/Inst.mp3",
@@ -30,23 +28,33 @@ self.addEventListener("install", event => {
 
 self.addEventListener("activate", event => {
   event.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(
-        keys.map(key => {
-          if (key !== CACHE_NAME) {
-            return caches.delete(key);
-          }
-        })
-      )
-    )
+    Promise.all([
+      caches.keys().then(keys =>
+        Promise.all(
+          keys.map(key => {
+            if (key !== CACHE_NAME) {
+              return caches.delete(key);
+            }
+          })
+        )
+      ),
+      self.clients.claim()
+    ])
   );
-  self.clients.claim();
 });
 
 self.addEventListener("fetch", event => {
+  if (event.request.method !== "GET") return;
+
   event.respondWith(
-    caches.match(event.request).then(response => {
-      return response || fetch(event.request);
-    })
+    fetch(event.request)
+      .then(networkResponse => {
+        const responseClone = networkResponse.clone();
+        caches.open(CACHE_NAME).then(cache => {
+          cache.put(event.request, responseClone);
+        });
+        return networkResponse;
+      })
+      .catch(() => caches.match(event.request))
   );
 });
