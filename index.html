@@ -105,7 +105,8 @@ if ("serviceWorker" in navigator) {
 		var queima = new Audio('Queima.mp3')
     	var beatbox = new Audio('Beat.mp3')
 		var inst = new Audio('Inst.mp3')
-		var nome = document.getElementById('nome').value.trim().toLowerCase()
+		var nomeOriginal = document.getElementById('nome').value.trim(); 
+		var nome = nomeOriginal.toLowerCase(); 
 		var resposta = document.getElementById('resposta')
 		var audio = new Audio('redline.mp3')
 	    var ui = new Audio('ui.mp3')
