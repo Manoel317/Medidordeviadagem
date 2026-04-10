@@ -96,6 +96,7 @@
 	    var zeDaManga = new Audio('ze da manga.mp3')
 	    var sixseven = new Audio('67.mp3')
     	var gigachad = new Audio('giga-chad-theme.mp3')
+		var ph = new Audio('PH.mp3')
 
 
 		if (nome === '') {
@@ -233,6 +234,10 @@
 			queima.currentTime = 0
 			queima.play()
 			
+		} else if (nome === 'ph') {
+			resposta.innerHTML = 'Tarado!'
+			ph.currentTime = 0
+			ph.play()
 		} else {
 			resposta.innerHTML = 'Você não é viado cara'
 		}
