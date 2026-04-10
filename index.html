@@ -103,6 +103,7 @@ if ("serviceWorker" in navigator) {
 		var inst = new Audio('Inst.mp3')
 
 	function mostrarNome() {
+
 		var nome = document.getElementById('nome').value.trim().toLowerCase()
 		var resposta = document.getElementById('resposta')
 		var audio = new Audio('redline.mp3')
@@ -116,6 +117,16 @@ if ("serviceWorker" in navigator) {
 
 		if (nome === '') {
 			resposta.innerHTML = 'digita'
+			queima.stop()
+			gigachad.stop()
+			audio.stop()
+			ui.stop()
+			zeDaManga.stop()
+			inst.stop()
+			beatbox.stop()
+			annajulia.stop()
+			sixseven.stop()
+			ph.stop()
 
 		} else if (nome === 'arthur') {
 			resposta.innerHTML = 'Você é muito viado e dá a bunda<br><img src="arthur.gif" style="display: block; margin: auto;">'
