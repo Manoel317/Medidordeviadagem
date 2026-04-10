@@ -84,18 +84,19 @@
 		<p>&copy; Manoel e Gustavo todos os direitos reservados</p>
 	</footer>
 	<script>
-	var audio = new Audio('redline.mp3')
-	var ui = new Audio('ui.mp3')
-	var zeDaManga = new Audio('ze da manga.mp3')
-	var sixseven = new Audio('67.mp3')
-	var gigachad = new Audio('giga-chad-theme.mp3')
-	var queima = new Audio('queima.mp3')
-	var aimeucuzinho = new Audio('ai-meu-cxzinhx.mp3')
-	var beatbox = new Audio('Beat.mp3')
+
 
 	function mostrarNome() {
 		var nome = document.getElementById('nome').value.trim().toLowerCase()
 		var resposta = document.getElementById('resposta')
+		var audio = new Audio('redline.mp3')
+	    var ui = new Audio('ui.mp3')
+	    var zeDaManga = new Audio('ze da manga.mp3')
+	    var sixseven = new Audio('67.mp3')
+    	var gigachad = new Audio('giga-chad-theme.mp3')
+    	var queima = new Audio('queima.mp3')
+    	var aimeucuzinho = new Audio('ai-meu-cxzinhx.mp3')
+    	var beatbox = new Audio('Beat.mp3')
 
 		if (nome === '') {
 			resposta.innerHTML = 'digita'
@@ -106,7 +107,7 @@
 			arthur.play()
 
 		} else if (nome === 'manoel') {
-			resposta.innerHTML = 'Você foi quem criou isso aqui'
+			resposta.innerHTML = 'Você foi quem criou isso aqui, mas também é muito foda.'
 			gigachad.currentTime = 0
 			gigachad.play()
 			
@@ -122,7 +123,7 @@
 			resposta.innerHTML = 'essa é aquela música la dos los hermanos, acho foda'
 
 		} else if (nome === 'davi guilherme') {
-			resposta.innerHTML = '<img src="reverso.png" width="200">'
+			resposta.innerHTML = '<img src="UNO-Reverse-Card-PNG-Image-File.png" width="200">'
 
 		} else if (nome === 'miguel') {
 			resposta.innerHTML = 'qual deles'
@@ -207,10 +208,10 @@
 			zeDaManga.currentTime = 0
 			zeDaManga.play()
 		
-		} else if (nome === 'guilherme') {
+		} else if (nome === 'Guilherme') {
 			resposta.innerHTML = 'Tu é foda'
 			gigachad.currentTime = 0
-			gigachas.play()
+			gigachad.play()
 		} else if (nome === 'kaique') {
 			resposta.innerHTML = 'Tu é daora'
 			beatbox.currentTime = 0
