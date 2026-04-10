@@ -269,14 +269,20 @@ if ("serviceWorker" in navigator) {
 			resposta.innerHTML = 'você deve ser completamente viado'
 			
 		} else if (nome.includes('youtube.com') || nome.includes('youtu.be')) {
-    		// 1. Extrai o ID do vídeo (exemplo simples via split)
-    		const videoId = nome.split('v=')[1] || nome.split('/').pop();
-    
-    		// 2. Coloca o iframe no seu container
-    		document.getElementById('seu-container-do-player').innerHTML = 
-        `		<iframe width="100%" height="315" src="https://youtube.com{videoId}" frameborder="0" allowfullscreen></iframe>`;
+            // Lógica para Player do YouTube
+            let videoId = "";
+            if (nome.includes('v=')) {
+                videoId = nome.split('v=')[1].split('&')[0];
+            } else {
+                videoId = nome.split('/').pop();
+            }
+            resposta.innerHTML = `Vídeo detectado:<br><iframe width="100%" height="200" src="https://youtube.com{videoId}" frameborder="0" allowfullscreen></iframe>`;
 
-		} else {
+        } else if (nome.match(/\.(mp4|webm|ogg)$/) || nome.startsWith('http') && !nome.includes('youtube')) {
+            // Lógica para arquivos diretos de vídeo
+            resposta.innerHTML = `Vídeo direto:<br><video src="${nome}" controls width="100%"></video>`;
+
+		}} else {
 			resposta.innerHTML = 'Você não é viado cara'
 		}
 		function pararaudio(index) {
