@@ -120,10 +120,6 @@ if ("serviceWorker" in navigator) {
 		if (nome === '') {
 			resposta.innerHTML = 'digita(parei os audios)'
 			pause()
-			function pararaudio(index) {
-   				 audios.pause();
-   				 audios.currentTime = 0;
-			}
 
 		} else if (nome === 'arthur') {
 			resposta.innerHTML = 'Você é muito viado e dá a bunda<br><img src="arthur.gif" style="display: block; margin: auto;">'
@@ -272,6 +268,10 @@ if ("serviceWorker" in navigator) {
 			
 		} else {
 			resposta.innerHTML = 'Você não é viado cara'
+		}
+		function pararaudio(index) {
+   				audios.pause();
+   				audios.currentTime = 0;
 		}
 	}
 	</script>
