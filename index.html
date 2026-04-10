@@ -121,6 +121,15 @@ if ("serviceWorker" in navigator) {
 			resposta.innerHTML = 'digita(parei os audios)'
 			audios.pause()
 			audios.currentTime = 0
+			function pararaudio(index) {
+
+ 				 faixas.forEach(a => {
+   				 a.pause();
+   				 a.currentTime = 0;
+ 			 });
+				
+			 audios[index].pause();
+			}
 
 		} else if (nome === 'arthur') {
 			resposta.innerHTML = 'Você é muito viado e dá a bunda<br><img src="arthur.gif" style="display: block; margin: auto;">'
