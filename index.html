@@ -105,7 +105,7 @@ if ("serviceWorker" in navigator) {
 		var queima = new Audio('Queima.mp3')
     	var beatbox = new Audio('Beat.mp3')
 		var inst = new Audio('Inst.mp3')
-		var nomeOriginal = document.getElementById('nome')
+		var urlOriginal = document.getElementById('nome').value.trim();
 		var nome = document.getElementById('nome').value.trim().toLowerCase()
 		var resposta = document.getElementById('resposta')
 		var audio = new Audio('redline.mp3')
@@ -271,7 +271,6 @@ if ("serviceWorker" in navigator) {
 			
 		} else if (nome.includes('youtube.com') || nome.includes('youtu.be')) {
     		// Pegamos o valor original DIRETO do input para manter as letras MAIÚSCULAS
-    		var urlOriginal = document.getElementById('nome').value.trim();
     		var videoId = "";
 
     	if (urlOriginal.includes('v=')) {
