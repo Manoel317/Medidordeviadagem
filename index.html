@@ -115,6 +115,7 @@ if ("serviceWorker" in navigator) {
 		var ph = new Audio('PH.mp3')
 		var annajulia = new Audio('Los hermanos - Anna Júlia - Los Hermanos (youtube).mp3.mp3')
 		var kickbuttowski = new Audio('kickbuttowski.mp3')
+		var weare = new Audio('weare.mp3')
 		var audios = [queima, beatbox, inst, audio, ui, zeDaManga, sixseven, gigachad, ph, annajulia]
 
 
@@ -282,6 +283,12 @@ if ("serviceWorker" in navigator) {
 			resposta.innerHTML = 'rocknroll yes<br>(la abertura de kick buttowski começa)'
 			kickbuttowski.currentTime = 0
 			kickbuttowski.play()
+
+			
+		} else if (nome === 'luffy') {
+			resposta.innerHTML = 'então voce quer ser rei dos piratas?'
+			weare.currentTime=0
+			weare.play()
 			
 		} else {
 			resposta.innerHTML = 'Esse nome não se encontra em nossos sistema, tente mais tarde assim que atualizar'
