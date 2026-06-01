@@ -90,7 +90,7 @@ if ("serviceWorker" in navigator) {
 	<output class="resposta" id="resposta"></output>
 
 	<div class="canto">
-		Versão 1.0.6 - Novos nomes adicionados e bugs corrigidos<br>
+		Versão 1.0.7 - Novos nomes adicionados e bugs corrigidos<br>
 		Criado originalmente por Manoel, editado por Gustavo
 	</div>
 
@@ -114,7 +114,7 @@ if ("serviceWorker" in navigator) {
     	var gigachad = new Audio('giga-chad-theme.mp3')
 		var ph = new Audio('PH.mp3')
 		var annajulia = new Audio('Los hermanos - Anna Júlia - Los Hermanos (youtube).mp3.mp3')
-		var kick = new Audio('kickbuttowski.mp3')
+		var kickbuttowski = new Audio('kickbuttowski.mp3')
 		var audios = [queima, beatbox, inst, audio, ui, zeDaManga, sixseven, gigachad, ph, annajulia]
 
 
@@ -278,10 +278,10 @@ if ("serviceWorker" in navigator) {
 		} else if (nome === 'yasmin alves') {
 			resposta.innerHTML = 'ah claro sim não po, sim, não, claramente'
 
-		} else if (nome === 'yasmin roque') {
+		} else if (nome === 'yasmin roque<br>(la abertura de kick buttowski começa)') {
 			resposta.innerHTML = 'rocknroll yes'
-			kick.currentTime = 0
-			kick.play()
+			kickbuttowski.currentTime = 0
+			kickbuttowski.play()
 			
 		} else {
 			resposta.innerHTML = 'Esse nome não se encontra em nossos sistema, tente mais tarde assim que atualizar'
