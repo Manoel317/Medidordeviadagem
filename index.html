@@ -157,18 +157,16 @@ function pararTodosAudios() {
 
 		if (nome === '') {
 			resposta.innerHTML = 'digita'
-			audios.pause()
-			audios.currentTime = 0
 
 		} else if (nome === 'arthur') {
 			resposta.innerHTML = 'Você é muito viado e dá a bunda<br><img src="arthur.gif" style="display: block; margin: auto;">'
 			queima.currentTime = 0
-			queima.play()
+			tocarAudio(queima)
 
 		} else if (nome === 'manoel') {
 			resposta.innerHTML = 'Você foi quem criou isso aqui, mas também é muito foda.'
 			gigachad.currentTime = 0
-			gigachad.play()
+			tocarAudio(gigachad)
 			
 		} else if (nome === 'ana júlia') {
 			resposta.innerHTML = 'Não cite esse nome, por favor'
@@ -176,17 +174,17 @@ function pararTodosAudios() {
 		} else if (nome === 'gustavo') {
 			resposta.innerHTML = 'Esse cara é muito é massa, né nao'
 			beatbox.currentTime = 0
-			beatbox.play()
+			tocarAudio(beatbox)
 
 		} else if (nome === 'anna júlia') {
 			resposta.innerHTML = 'essa é aquela música la dos los hermanos, acho foda'
 			annajulia.currentTime = 0
-			annajulia.play()
+			tocarAudio(annajulia)
 
 		} else if (nome === 'davi guilherme') {
 			resposta.innerHTML = '<img src="UNO-Reverse-Card-PNG-Image-File.png" width="200">'
 			inst.currentTime = 0
-			inst.play()
+			tocarAudio(inst)
 
 		} else if (nome === 'miguel leoncio') {
 			resposta.innerHTML = 'anão'
@@ -200,7 +198,7 @@ function pararTodosAudios() {
 		} else if (nome === 'nathan') {
 			resposta.innerHTML = 'tratador de arthur gomes'
 			gigachad.currentTime = 0
-			gigachad.play()
+			tocarAudio(gigachad)
 
 		} else if (nome === 'nycolle') {
 			resposta.innerHTML = 'lesbica'
