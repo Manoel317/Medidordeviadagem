@@ -105,8 +105,7 @@ if ("serviceWorker" in navigator) {
 	<output class="resposta" id="resposta"></output>
 
 	<div class="canto">
-		Versão 1.0.7 - Novos nomes adicionados e bugs corrigidos<br>
-		Criado originalmente por Manoel, editado por Gustavo
+		Versão 1.0.8 - Novos nomes adicionados e função de parar audios adicionada
 	</div>
 
 	<footer>
@@ -114,7 +113,7 @@ if ("serviceWorker" in navigator) {
 	</footer>
 	<script>
 
-		var audiosAtivos = [];
+var audiosAtivos = [];
 
 function tocarAudio(audio) {
 	audio.currentTime = 0;
