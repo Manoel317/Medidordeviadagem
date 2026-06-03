@@ -80,7 +80,22 @@ if ("serviceWorker" in navigator) {
 }
 </script>
 </head>
-
+<button id="pararAudioBtn" onclick="pararTodosAudios()" style="
+	display:none;
+	position:fixed;
+	bottom:10px;
+	left:50%;
+	transform:translateX(-50%);
+	padding:12px 20px;
+	background:red;
+	color:white;
+	border:none;
+	border-radius:8px;
+	cursor:pointer;
+	z-index:999;
+">
+	🔇 Parar Áudio
+</button>
 <body>
 
 	<h1>Medidor de viadagem</h1>
@@ -99,6 +114,27 @@ if ("serviceWorker" in navigator) {
 	</footer>
 	<script>
 
+		var audiosAtivos = [];
+
+function tocarAudio(audio) {
+	audio.currentTime = 0;
+	audio.play();
+
+	if (!audiosAtivos.includes(audio)) {
+		audiosAtivos.push(audio);
+	}
+
+	document.getElementById("pararAudioBtn").style.display = "block";
+}
+
+function pararTodosAudios() {
+	audiosAtivos.forEach(audio => {
+		audio.pause();
+		audio.currentTime = 0;
+	});
+
+	audiosAtivos = [];
+	document.getElementById("pararAudioBtn").style.display = "none";
 
 	function mostrarNome() {
 		
