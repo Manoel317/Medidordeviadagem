@@ -116,7 +116,8 @@ if ("serviceWorker" in navigator) {
 		var annajulia = new Audio('Los hermanos - Anna Júlia - Los Hermanos (youtube).mp3.mp3')
 		var kickbuttowski = new Audio('kickbuttowski.mp3')
 		var weare = new Audio('weare.mp3')
-		var audios = [queima, beatbox, inst, audio, ui, zeDaManga, sixseven, gigachad, ph, annajulia]
+		var numb = new Audio('numb.mp3')
+		var audios = [queima, beatbox, inst, audio, ui, zeDaManga, sixseven, gigachad, ph, annajulia, weare, kickbuttowski, numb]
 
 
 		if (nome === '') {
@@ -289,6 +290,11 @@ if ("serviceWorker" in navigator) {
 			resposta.innerHTML = 'então voce quer ser rei dos piratas?'
 			weare.currentTime=0
 			weare.play()
+
+		} else if (nome === 'linkin park') {
+			resposta.innerHTML = 'Numb - Linkin Park'
+			numb.currentTime=0
+			numb.play()
 			
 		} else {
 			resposta.innerHTML = 'Esse nome não se encontra em nossos sistema, tente mais tarde assim que atualizar'
