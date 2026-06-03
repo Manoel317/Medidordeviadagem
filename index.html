@@ -17,6 +17,7 @@
 			min-height: 100vh;
 			justify-content: center;
 			padding: 30px;
+			padding-bottom: 90px; /* espaço pro botão fixo */
 			box-sizing: border-box;
 			text-align: center;
 		}
@@ -64,6 +65,30 @@
 			color: #555;
 			opacity: 0.7;
 		}
+
+		/* Botão de parar áudio */
+		#btn-parar {
+			display: none;
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			padding: 16px;
+			background-color: #e53935;
+			color: white;
+			font-size: 1.1rem;
+			font-weight: bold;
+			border: none;
+			border-radius: 0;
+			cursor: pointer;
+			z-index: 1000;
+			box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
+			transition: background-color 0.2s;
+		}
+
+		#btn-parar:hover {
+			background-color: #b71c1c;
+		}
 	</style>
 	<script>
 if ("serviceWorker" in navigator) {
@@ -80,22 +105,7 @@ if ("serviceWorker" in navigator) {
 }
 </script>
 </head>
-<button id="pararAudioBtn" onclick="pararTodosAudios()" style="
-	display:none;
-	position:fixed;
-	bottom:10px;
-	left:50%;
-	transform:translateX(-50%);
-	padding:12px 20px;
-	background:red;
-	color:white;
-	border:none;
-	border-radius:8px;
-	cursor:pointer;
-	z-index:999;
-">
-	🔇 Parar Áudio
-</button>
+
 <body>
 
 	<h1>Medidor de viadagem</h1>
@@ -105,35 +115,48 @@ if ("serviceWorker" in navigator) {
 	<output class="resposta" id="resposta"></output>
 
 	<div class="canto">
-		Versão 1.0.8 - Novos nomes adicionados e função de parar audios adicionada
+		Versão 1.0.8 - Novos nomes adicionados e função de parar áudios adicionada
 	</div>
 
 	<footer>
 		<p>&copy; Manoel e Gustavo todos os direitos reservados</p>
 	</footer>
+
+	<!-- Botão fixo de parar áudio -->
+	<button id="btn-parar" onclick="pararAudio()">⏹ Parar áudio</button>
+
 	<script>
 
-var audiosAtivos = [];
+	var audioAtual = null;
 
-function tocarAudio(audio) {
-	audio.currentTime = 0;
-	audio.play();
+	function tocarAudio(audio) {
+		// Para qualquer áudio que esteja tocando
+		if (audioAtual && audioAtual !== audio) {
+			audioAtual.pause();
+			audioAtual.currentTime = 0;
+		}
+		audio.currentTime = 0;
+		audio.play();
+		audioAtual = audio;
 
-	if (!audiosAtivos.includes(audio)) {
-		audiosAtivos.push(audio);
+		// Mostra o botão de parar
+		document.getElementById('btn-parar').style.display = 'block';
+
+		// Quando o áudio terminar, esconde o botão
+		audio.onended = function() {
+			document.getElementById('btn-parar').style.display = 'none';
+			audioAtual = null;
+		};
 	}
 
-	document.getElementById("pararAudioBtn").style.display = "block";
-}
-
-function pararTodosAudios() {
-	audiosAtivos.forEach(audio => {
-		audio.pause();
-		audio.currentTime = 0;
-	});
-
-	audiosAtivos = [];
-	document.getElementById("pararAudioBtn").style.display = "none";
+	function pararAudio() {
+		if (audioAtual) {
+			audioAtual.pause();
+			audioAtual.currentTime = 0;
+			audioAtual = null;
+		}
+		document.getElementById('btn-parar').style.display = 'none';
+	}
 
 	function mostrarNome() {
 		
@@ -152,20 +175,18 @@ function pararTodosAudios() {
 		var kickbuttowski = new Audio('kickbuttowski.mp3')
 		var weare = new Audio('weare.mp3')
 		var numb = new Audio('numb.mp3')
-		var audios = [queima, beatbox, inst, audio, ui, zeDaManga, sixseven, gigachad, ph, annajulia, weare, kickbuttowski, numb]
 
 
 		if (nome === '') {
 			resposta.innerHTML = 'digita'
+			pararAudio()
 
 		} else if (nome === 'arthur') {
 			resposta.innerHTML = 'Você é muito viado e dá a bunda<br><img src="arthur.gif" style="display: block; margin: auto;">'
-			queima.currentTime = 0
 			tocarAudio(queima)
 
 		} else if (nome === 'manoel') {
 			resposta.innerHTML = 'Você foi quem criou isso aqui, mas também é muito foda.'
-			gigachad.currentTime = 0
 			tocarAudio(gigachad)
 			
 		} else if (nome === 'ana júlia') {
@@ -173,17 +194,14 @@ function pararTodosAudios() {
 
 		} else if (nome === 'gustavo') {
 			resposta.innerHTML = 'Esse cara é muito é massa, né nao'
-			beatbox.currentTime = 0
 			tocarAudio(beatbox)
 
 		} else if (nome === 'anna júlia') {
 			resposta.innerHTML = 'essa é aquela música la dos los hermanos, acho foda'
-			annajulia.currentTime = 0
 			tocarAudio(annajulia)
 
 		} else if (nome === 'davi guilherme') {
 			resposta.innerHTML = '<img src="UNO-Reverse-Card-PNG-Image-File.png" width="200">'
-			inst.currentTime = 0
 			tocarAudio(inst)
 
 		} else if (nome === 'miguel leoncio') {
@@ -197,7 +215,6 @@ function pararTodosAudios() {
 
 		} else if (nome === 'nathan') {
 			resposta.innerHTML = 'tratador de arthur gomes'
-			gigachad.currentTime = 0
 			tocarAudio(gigachad)
 
 		} else if (nome === 'nycolle') {
@@ -208,26 +225,22 @@ function pararTodosAudios() {
 
 		} else if (nome === 'não') {
 			resposta.innerHTML = 'ent blz ent'
-			gigachad.currentTime = 0
-			gigachad.play()
+			tocarAudio(gigachad)
 
 		} else if (nome === 'ana carolina') {
 			resposta.innerHTML = 'ei voce sabia que o gustavo ele<br>(mensagem bloqueada pelo admnistrador)'
 
 		} else if (nome === 'enzy') {
 			resposta.innerHTML = 'esse caba fez o mic mayhem ele é massa'
-			audio.currentTime = 0
-			audio.play()
+			tocarAudio(audio)
 
 		} else if (nome === 'ricardo') {
 			resposta.innerHTML = 'nem um pouco gay'
-			gigachad.currentTime = 0
-			gigachad.play()
+			tocarAudio(gigachad)
 
 		} else if (nome === 'carlos') {
 			resposta.innerHTML = '👍'
-			audio.currentTime = 0
-			audio.play()
+			tocarAudio(audio)
 
 		} else if (nome === 'vinícius') {
 			resposta.innerHTML = 'não sei, vou perguntar pra ele depois'
@@ -252,50 +265,41 @@ function pararTodosAudios() {
 
 		} else if (nome === 'clara') {
 			resposta.innerHTML = 'beijo do douglas'
-			ui.currentTime = 0
-			ui.play()
+			tocarAudio(ui)
 
 		} else if (nome === 'nicolas') {
 			resposta.innerHTML = 'Chorão'
 
 		} else if (nome === '67') {
 			resposta.innerHTML = 'YOOOOOOOOOOOO<br><img src="sixseven.jpg" width="200">'
-			sixseven.currentTime = 0
-			sixseven.play()
+			tocarAudio(sixseven)
 
 	    } else if (nome === 'ana clara') {
 			resposta.innerHTML = 'se for a irmã do jõao pedro, eu nao sei'		
 		
 		} else if (nome === 'douglas') {
 			resposta.innerHTML = 'beijo da clara'
-			ui.currentTime = 0
-			ui.play()
-			
+			tocarAudio(ui)
 		
 		} else if (nome === 'viado') {
 			resposta.innerHTML = 'se tu se chama viado, tu é viado, né?'
-			zeDaManga.currentTime = 0
-			zeDaManga.play()
+			tocarAudio(zeDaManga)
 		
 		} else if (nome === 'guilherme') {
 			resposta.innerHTML = 'Segue o lider'
-			gigachad.currentTime = 0
-			gigachad.play()
+			tocarAudio(gigachad)
 			
 		} else if (nome === 'kaique') {
 			resposta.innerHTML = 'Todo Kaique é gente boa logo não é viado'
-			beatbox.currentTime = 0
-			beatbox.play()
+			tocarAudio(beatbox)
 			
 		} else if (nome === 'matheus') {
 			resposta.innerHTML = 'Você é o maior viado, gay e o mais merda que ja pisou nessa terra<br><video src="Matheus-ezgif.com-gif-maker.mp4" controls width="200"></video>'
-			queima.currentTime = 0
-			queima.play()
+			tocarAudio(queima)
 			
 		} else if (nome === 'ph') {
 			resposta.innerHTML = 'Tarado!'
-			ph.currentTime = 0
-			ph.play()
+			tocarAudio(ph)
 
 		} else if (nome === 'ana luiza') {
 			var n = prompt('Insira sua mensagem')
@@ -315,26 +319,19 @@ function pararTodosAudios() {
 
 		} else if (nome === 'yasmin roque') {
 			resposta.innerHTML = 'rocknroll yes<br>(la abertura de kick buttowski começa)'
-			kickbuttowski.currentTime = 0
-			kickbuttowski.play()
+			tocarAudio(kickbuttowski)
 
 			
 		} else if (nome === 'luffy') {
 			resposta.innerHTML = 'então voce quer ser rei dos piratas?'
-			weare.currentTime=0
-			weare.play()
+			tocarAudio(weare)
 
 		} else if (nome === 'linkin park') {
 			resposta.innerHTML = 'Numb - Linkin Park'
-			numb.currentTime=0
-			numb.play()
+			tocarAudio(numb)
 			
 		} else {
 			resposta.innerHTML = 'Esse nome não se encontra em nossos sistema, tente mais tarde assim que atualizar'
-		}
-		function pararaudio(index) {
-   				audios.pause();
-   				audios.currentTime = 0;
 		}
 	}
 	</script>
