@@ -378,24 +378,7 @@ if ("serviceWorker" in navigator) {
 	    } else if (nome === 'jevil') {
          resposta.innerHTML = 'CHAOS CHAOS<br><img src="jevil.gif" style="display: block; margin: auto;">'
           tocarAudio(jevil)
-
-} else if (nome === 'mensagem') {
-
-    var nomePessoa = prompt('Digite seu nome')
-    var textoMensagem = prompt('Digite sua mensagem')
-
-    var mensagens = JSON.parse(localStorage.getItem('mensagens')) || []
-
-    mensagens.push({
-        nome: nomePessoa,
-        mensagem: textoMensagem
-    })
-
-    localStorage.setItem('mensagens', JSON.stringify(mensagens))
-
-    resposta.innerHTML = 'Mensagem salva!'
-}
-			
+	
       else {
 			resposta.innerHTML = 'Esse nome não se encontra em nossos sistema, tente mais tarde assim que atualizar'
 		}
