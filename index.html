@@ -306,7 +306,7 @@ if ("serviceWorker" in navigator) {
 
 		} else if (nome === 'ana luiza') {
 			var n = prompt('Insira sua mensagem')
-			resposta.innertHTML = n
+			resposta.innerHTML = n
 
 		} else if (nome === 'eu') {
 			resposta.innerHTML = 'você deve ser completamente viado'
@@ -378,6 +378,18 @@ if ("serviceWorker" in navigator) {
 	    } else if (nome === 'jevil') {
          resposta.innerHTML = 'CHAOS CHAOS<br><img src="jevil.gif" style="display: block; margin: auto;">'
           tocarAudio(jevil)
+
+			} else if (nome === 'mensagem') {
+    var n = prompt('Insira sua mensagem')
+
+    mensagens.push({
+        nome: nome,
+        mensagem: n,
+        data: new Date().toLocaleString()
+    })
+
+    resposta.innerHTML = 'Mensagem salva'
+}
 			
 	     } else {
 			resposta.innerHTML = 'Esse nome não se encontra em nossos sistema, tente mais tarde assim que atualizar'
