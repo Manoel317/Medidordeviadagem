@@ -177,6 +177,7 @@ if ("serviceWorker" in navigator) {
 		var kickbuttowski = new Audio('kickbuttowski.mp3')
 		var weare = new Audio('weare.mp3')
 		var numb = new Audio('numb.mp3')
+		var jevil = new Audio('theworldrevolving.mp3')
 
 
 		if (nome === '') {
@@ -371,6 +372,10 @@ if ("serviceWorker" in navigator) {
             <button onclick="tocarAudio(new Audio('numb.mp3'))">🎤 Numb</button>
         </div>
     `
+
+		} else if (nome === 'jevil') {
+			resposta.innerHTML = 'CHAOS CHAOS<br><img src="jevil.gif" style="display: block; margin: auto;'
+			tocarAudio(jevil)
 			
 	     } else {
 			resposta.innerHTML = 'Esse nome não se encontra em nossos sistema, tente mais tarde assim que atualizar'
