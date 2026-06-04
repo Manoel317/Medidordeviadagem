@@ -332,14 +332,14 @@ if ("serviceWorker" in navigator) {
 			resposta.innerHTML = 'Numb - Linkin Park'
 			tocarAudio(numb)
 
-		} else if (nome === 'áudios') {
-        resposta.innerHTML = `
+         } else if (nome === 'áudios') {
+          resposta.innerHTML = `
         <b>Escolha qual áudio quer tocar:</b><br><br>
         <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center">
             <button onclick="tocarAudio(new Audio('Queima.mp3'))">🔥 Queima</button>
             <button onclick="tocarAudio(new Audio('Beat.mp3'))">🥁 Beatbox</button>
-            <button onclick="tocarAudio(new Audio('Inst.mp3'))">🃏 Instinto Superior</button>
-            <button onclick="tocarAudio(new Audio('redline.mp3'))">🎵 Redline Rampage</button>
+            <button onclick="tocarAudio(new Audio('Inst.mp3'))">🃏 Inst</button>
+            <button onclick="tocarAudio(new Audio('redline.mp3'))">🎵 Redline</button>
             <button onclick="tocarAudio(new Audio('ui.mp3'))">🔔 UI</button>
             <button onclick="tocarAudio(new Audio('ze da manga.mp3'))">🥭 Zé da Manga</button>
             <button onclick="tocarAudio(new Audio('67.mp3'))">6️⃣7️⃣ 67</button>
@@ -351,14 +351,16 @@ if ("serviceWorker" in navigator) {
             <button onclick="tocarAudio(new Audio('numb.mp3'))">🎤 Numb</button>
         </div>
     `
-		} else if (nome === 'audios') {
-        resposta.innerHTML = `
+
+			
+         } else if (nome === 'audios') {
+          resposta.innerHTML = `
         <b>Escolha qual áudio quer tocar:</b><br><br>
         <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center">
             <button onclick="tocarAudio(new Audio('Queima.mp3'))">🔥 Queima</button>
             <button onclick="tocarAudio(new Audio('Beat.mp3'))">🥁 Beatbox</button>
-            <button onclick="tocarAudio(new Audio('Inst.mp3'))">🃏 Instinto Superior</button>
-            <button onclick="tocarAudio(new Audio('redline.mp3'))">🎵 Redline Rampage</button>
+            <button onclick="tocarAudio(new Audio('Inst.mp3'))">🃏 Inst</button>
+            <button onclick="tocarAudio(new Audio('redline.mp3'))">🎵 Redline</button>
             <button onclick="tocarAudio(new Audio('ui.mp3'))">🔔 UI</button>
             <button onclick="tocarAudio(new Audio('ze da manga.mp3'))">🥭 Zé da Manga</button>
             <button onclick="tocarAudio(new Audio('67.mp3'))">6️⃣7️⃣ 67</button>
@@ -369,8 +371,8 @@ if ("serviceWorker" in navigator) {
             <button onclick="tocarAudio(new Audio('weare.mp3'))">🏴‍☠️ We Are</button>
             <button onclick="tocarAudio(new Audio('numb.mp3'))">🎤 Numb</button>
         </div>
-			
-		} else {
+    `
+	     } else if {
 			resposta.innerHTML = 'Esse nome não se encontra em nossos sistema, tente mais tarde assim que atualizar'
 		}
 	}
