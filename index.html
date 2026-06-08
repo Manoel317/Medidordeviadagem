@@ -178,6 +178,7 @@ if ("serviceWorker" in navigator) {
 		var weare = new Audio('weare.mp3')
 		var numb = new Audio('numb.mp3')
 		var jevil = new Audio('theworldrevolving.mp3')
+		var lula = new Audio('lula.mp3')
 
 
 		if (nome === '') {
@@ -352,6 +353,8 @@ if ("serviceWorker" in navigator) {
             <button onclick="tocarAudio(new Audio('weare.mp3'))">🏴‍☠️ We Are</button>
             <button onclick="tocarAudio(new Audio('numb.mp3'))">🎤 Numb</button>
 			<button onclick="tocarAudio(new Audio('theworldrevolving.mp3'))">🤡 The World Revolving</button>
+			<button onclick="tocarAudio(new Audio('lula.mp3'))">🕴️ Lula</button>
+
         </div>
     `
 
@@ -373,12 +376,17 @@ if ("serviceWorker" in navigator) {
             <button onclick="tocarAudio(new Audio('weare.mp3'))">🏴‍☠️ We Are</button>
             <button onclick="tocarAudio(new Audio('numb.mp3'))">🎤 Numb</button>
 			<button onclick="tocarAudio(new Audio('theworldrevolving.mp3'))">🤡 The World Revolving</button>
+			<button onclick="tocarAudio(new Audio('lula.mp3'))">🕴️ Lula</button>
         </div>
     `
 
 	    } else if (nome === 'jevil') {
          resposta.innerHTML = 'CHAOS CHAOS<br><img src="jevil.gif" style="display: block; margin: auto;">'
           tocarAudio(jevil)
+
+		} else if (nome === 'jevil') {
+         resposta.innerHTML = 'CHAOS CHAOS'
+          tocarAudio(lula)
 			
 		} else {
 			resposta.innerHTML = 'Esse nome não se encontra em nossos sistema, tente mais tarde assim que atualizar'
