@@ -180,6 +180,7 @@ if ("serviceWorker" in navigator) {
 		var jevil = new Audio('theworldrevolving.mp3')
 		var lula = new Audio('lula.mp3')
 		var michael = new Audio('michael.mp3')
+		var Bolsonaro = new Audio('explica.mp3')
 
 
 		if (nome === '') {
@@ -398,6 +399,9 @@ if ("serviceWorker" in navigator) {
 		} else if (nome === 'michael jackson') {
 			resposta.innerHTML = 'Hee-Hee<br><video src="moonwalk.mp4" controls width="200"></video>'
 			 tocarAudio(billiejean)
+		} else if (nome === 'Bolsonaro') {
+			resposta.innerHTML = 'Já expliquei<br><img src="Bolsonaro.png" width="200">'
+			tocarAudio(Bolsonaro)
 		} else {
 			resposta.innerHTML = 'Esse nome não se encontra em nossos sistema, tente mais tarde assim que atualizar'
 		}
