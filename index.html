@@ -161,7 +161,7 @@ if ("serviceWorker" in navigator) {
 	}
 
 	function mostrarNome() {
-		var billiejean = Audio('Michael Jackson - Billie Jean (Lyrics).mp3')
+		var billiejean = new Audio('Michael Jackson - Billie Jean (Lyrics).mp3')
 		var queima = new Audio('Queima.mp3')
     	var beatbox = new Audio('Beat.mp3')
 		var inst = new Audio('Inst.mp3')
@@ -379,6 +379,7 @@ if ("serviceWorker" in navigator) {
             <button onclick="tocarAudio(new Audio('numb.mp3'))">🎤 Numb</button>
 			<button onclick="tocarAudio(new Audio('theworldrevolving.mp3'))">🤡 The World Revolving</button>
 			<button onclick="tocarAudio(new Audio('lula.mp3'))">🕴️ Lula</button>
+			<button onclick="tocarAudio(new Audio('Michael Jackson - Billie Jean (Lyrics).mp3')">🎩 Billie jean</button>
 			<button onclick="tocarAudio(new Audio('michael.mp3'))">🎩 Michael Jackson</button>
         </div>
     `
@@ -394,8 +395,7 @@ if ("serviceWorker" in navigator) {
 		} else if (nome === 'michael') {
          resposta.innerHTML = 'isbilidin'
           tocarAudio(michael)
-			
-		} else if (nome === 'Michael Jackson') {
+		} else if (nome === 'michael jackson') {
 			resposta.innerHTML = 'Hee-Hee'
 			 tocarAudio(billiejean)
 		} else {
