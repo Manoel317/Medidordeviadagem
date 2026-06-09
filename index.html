@@ -161,7 +161,7 @@ if ("serviceWorker" in navigator) {
 	}
 
 	function mostrarNome() {
-		
+		var billiejean = Audio('Michael Jackson - Billie Jean (Lyrics).mp3')
 		var queima = new Audio('Queima.mp3')
     	var beatbox = new Audio('Beat.mp3')
 		var inst = new Audio('Inst.mp3')
@@ -395,6 +395,9 @@ if ("serviceWorker" in navigator) {
          resposta.innerHTML = 'isbilidin'
           tocarAudio(michael)
 			
+		} else if (nome === 'Michael Jackson') {
+			resposta.innerHTML = 'Hee-Hee'
+			 tocarAudio(billiejean)
 		} else {
 			resposta.innerHTML = 'Esse nome não se encontra em nossos sistema, tente mais tarde assim que atualizar'
 		}
