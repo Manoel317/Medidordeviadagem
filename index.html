@@ -180,7 +180,7 @@ if ("serviceWorker" in navigator) {
 		var jevil = new Audio('theworldrevolving.mp3')
 		var lula = new Audio('lula.mp3')
 		var michael = new Audio('michael.mp3')
-		var Bolsonaro = new Audio('explica.mp3')
+		var bolsonaro = new Audio('explica.mp3')
 
 
 		if (nome === '') {
@@ -357,6 +357,7 @@ if ("serviceWorker" in navigator) {
 			<button onclick="tocarAudio(new Audio('theworldrevolving.mp3'))">🤡 The World Revolving</button>
 			<button onclick="tocarAudio(new Audio('lula.mp3'))">🕴️ Lula</button>
 			<button onclick="tocarAudio(new Audio('michael.mp3'))">🎩 Michael Jackson</button>
+			<button onclick="tocarAudio(new Audio('explica.mp3'))">Já expliquei</button>
 
         </div>
     `
@@ -382,6 +383,7 @@ if ("serviceWorker" in navigator) {
 			<button onclick="tocarAudio(new Audio('lula.mp3'))">🕴️ Lula</button>
 			<button onclick="tocarAudio(new Audio('Michael Jackson - Billie Jean (Lyrics).mp3')">🎩 Billie jean</button>
 			<button onclick="tocarAudio(new Audio('michael.mp3'))">🎩 Michael Jackson</button>
+			<button onclick="tocarAudio(new Audio('explica.mp3'))">Já expliquei</button>
         </div>
     `
 
@@ -401,7 +403,7 @@ if ("serviceWorker" in navigator) {
 			 tocarAudio(billiejean)
 		} else if (nome === 'bolsonaro') {
 			resposta.innerHTML = 'Já expliquei<br><img src="Bolsonaro.png" width="200">'
-			tocarAudio(Bolsonaro)
+			tocarAudio(bolsonaro)
 		} else {
 			resposta.innerHTML = 'Esse nome não se encontra em nossos sistema, tente mais tarde assim que atualizar'
 		}
