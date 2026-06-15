@@ -404,6 +404,11 @@ if ("serviceWorker" in navigator) {
 		} else if (nome === 'bolsonaro') {
 			resposta.innerHTML = 'Já expliquei<br><img src="Bolsonaro.png" width="200">'
 			tocarAudio(bolsonaro)
+
+		} else if (nome === 'mensagem') {
+            resposta.innerHTML = 'Redirecionando...';
+            window.open('https://mensagens-do-medidor-rho.vercel.app/')
+		
 		} else {
 			resposta.innerHTML = 'Esse nome não se encontra em nossos sistema, tente mais tarde assim que atualizar'
 		}
