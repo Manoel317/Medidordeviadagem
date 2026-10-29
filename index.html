@@ -3,68 +3,170 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="theme-color" content="#2b8cff">
 	<title>Medidor de Viadagem</title>
+	<link rel="icon" href="icone.png" type="image/png">
+
+	<script>
+	// Aplica o tema salvo antes de renderizar (evita "piscar" claro -> escuro)
+	(function () {
+		var tema = null;
+		try { tema = localStorage.getItem('tema'); } catch (e) {}
+		if (!tema) {
+			tema = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+		}
+		document.documentElement.setAttribute('data-tema', tema);
+	})();
+	</script>
 
 	<style>
+		:root {
+			--bg: #f0f0f0;
+			--texto: #202020;
+			--texto-suave: #555;
+			--card: #f9f9f9;
+			--borda: #bbb;
+			--campo: #ffffff;
+			--campo-borda: #ccc;
+			--azul: #2b8cff;
+			--azul-hover: #1a6ed7;
+			--vermelho: #e53935;
+			--vermelho-hover: #b71c1c;
+			color-scheme: light;
+		}
+
+		:root[data-tema="dark"] {
+			--bg: #121418;
+			--texto: #e8eaed;
+			--texto-suave: #9aa0a6;
+			--card: #1d2026;
+			--borda: #3a3f47;
+			--campo: #1d2026;
+			--campo-borda: #3a3f47;
+			--azul: #3d96ff;
+			--azul-hover: #5aa8ff;
+			--vermelho: #e5504d;
+			--vermelho-hover: #ff6b68;
+			color-scheme: dark;
+		}
+
+		* { box-sizing: border-box; }
+
 		body {
 			font-family: Arial, sans-serif;
-			background-color: #f0f0f0;
+			background-color: var(--bg);
+			color: var(--texto);
 			display: flex;
 			flex-direction: column;
 			gap: 12px;
-			max-width: 320px;
+			max-width: 360px;
 			margin: 0 auto;
 			min-height: 100vh;
 			justify-content: center;
 			padding: 30px;
 			padding-bottom: 90px; /* espaço pro botão fixo */
-			box-sizing: border-box;
 			text-align: center;
+			transition: background-color 0.25s, color 0.25s;
 		}
 
 		h1 {
 			font-family: "Comic Sans MS", cursive;
 			font-size: 1.8rem;
-			margin-bottom: 10px;
+			margin: 0 0 10px;
 		}
 
-		input, select, button, output {
+		input, button, output {
 			font-size: 1rem;
 			padding: 10px;
-			border: 1px solid #ccc;
+			border: 1px solid var(--campo-borda);
 			border-radius: 8px;
+			font-family: inherit;
 		}
+
+		input {
+			background-color: var(--campo);
+			color: var(--texto);
+		}
+
+		input::placeholder { color: var(--texto-suave); }
 
 		button {
 			cursor: pointer;
-			background-color: #2b8cff;
-			color: white;
+			background-color: var(--azul);
+			color: #fff;
 			border: none;
+			transition: background-color 0.2s, transform 0.1s;
 		}
 
-		button:hover {
-			background-color: #1a6ed7;
+		button:hover { background-color: var(--azul-hover); }
+		button:active { transform: scale(0.97); }
+
+		input:focus-visible,
+		button:focus-visible {
+			outline: 3px solid var(--azul);
+			outline-offset: 2px;
 		}
 
 		output.resposta {
 			min-height: 36px;
 			display: block;
 			line-height: 1.4;
-			background-color: #f9f9f9;
-			color: #202020;
-			border: 1px solid #bbb;
+			background-color: var(--card);
+			color: var(--texto);
+			border: 1px solid var(--borda);
 			padding: 18px;
 			white-space: pre-wrap;
+			overflow-wrap: anywhere;
 		}
+
+		output.resposta img,
+		output.resposta video {
+			max-width: 100%;
+			height: auto;
+			border-radius: 8px;
+		}
+
+		output.resposta button {
+			font-size: 0.85rem;
+			padding: 8px 10px;
+		}
+
+		footer {
+			font-size: 0.8rem;
+			color: var(--texto-suave);
+		}
+
+		footer p { margin: 0; }
 
 		.canto {
 			position: fixed;
 			bottom: 10px;
 			left: 10px;
+			max-width: 60%;
 			font-size: 0.8rem;
-			color: #555;
-			opacity: 0.7;
+			text-align: left;
+			color: var(--texto-suave);
+			opacity: 0.8;
 		}
+
+		/* Botão de alternar tema */
+		#btn-tema {
+			position: fixed;
+			top: 12px;
+			right: 12px;
+			width: 44px;
+			height: 44px;
+			padding: 0;
+			font-size: 1.3rem;
+			line-height: 1;
+			border-radius: 50%;
+			background-color: var(--card);
+			color: var(--texto);
+			border: 1px solid var(--borda);
+			z-index: 900;
+		}
+
+		#btn-tema:hover { background-color: var(--borda); }
 
 		/* Botão de parar áudio */
 		#btn-parar {
@@ -74,7 +176,7 @@
 			left: 0;
 			width: 100%;
 			padding: 16px;
-			background-color: #e53935;
+			background-color: var(--vermelho);
 			color: white;
 			font-size: 1.1rem;
 			font-weight: bold;
@@ -82,42 +184,44 @@
 			border-radius: 0;
 			cursor: pointer;
 			z-index: 1000;
-			box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
-			transition: background-color 0.2s;
+			box-shadow: 0 -2px 8px rgba(0,0,0,0.25);
 		}
 
-		#btn-parar:hover {
-			background-color: #b71c1c;
+		#btn-parar:hover { background-color: var(--vermelho-hover); }
+
+		@media (prefers-reduced-motion: reduce) {
+			* { transition: none !important; }
 		}
 	</style>
-	<script>
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("/service-worker.js")
-      .then(registration => {
-        registration.update();
-        console.log("Service Worker registrado");
-      })
-      .catch(error => {
-        console.log("Erro no Service Worker:", error);
-      });
-  });
-}
-</script>
-</head>
 
-    <link rel="icon" href="icone.png" type="image/png">
+	<script>
+		if ("serviceWorker" in navigator) {
+			window.addEventListener("load", () => {
+				navigator.serviceWorker.register("/service-worker.js")
+					.then(registration => {
+						registration.update();
+						console.log("Service Worker registrado");
+					})
+					.catch(error => {
+						console.log("Erro no Service Worker:", error);
+					});
+			});
+		}
+	</script>
+</head>
 
 <body>
 
+	<button id="btn-tema" type="button" onclick="alternarTema()" aria-label="Alternar entre modo claro e escuro" title="Alternar tema">🌙</button>
+
 	<h1>Medidor de viadagem</h1>
 
-	<input type="text" id="nome" placeholder="Digite seu nome">
+	<input type="text" id="nome" placeholder="Digite seu nome" aria-label="Seu nome" autocomplete="off" autocapitalize="none" enterkeyhint="send">
 	<button onclick="mostrarNome()">Enviar</button>
-	<output class="resposta" id="resposta"></output>
+	<output class="resposta" id="resposta" aria-live="polite"></output>
 
 	<div class="canto">
-		Versão 1.0.8 - Novos nomes adicionados e função de parar áudios adicionada
+		Versão 1.1.0 - Modo claro/escuro, envio com Enter e melhorias gerais
 	</div>
 
 	<footer>
@@ -129,7 +233,38 @@ if ("serviceWorker" in navigator) {
 
 	<script>
 
+	/* ---------- Tema claro / escuro ---------- */
+
+	function atualizarIconeTema() {
+		var escuro = document.documentElement.getAttribute('data-tema') === 'dark';
+		var btn = document.getElementById('btn-tema');
+		btn.textContent = escuro ? '☀️' : '🌙';
+		btn.title = escuro ? 'Mudar para modo claro' : 'Mudar para modo escuro';
+		var meta = document.querySelector('meta[name="theme-color"]');
+		if (meta) meta.setAttribute('content', escuro ? '#121418' : '#2b8cff');
+	}
+
+	function alternarTema() {
+		var atual = document.documentElement.getAttribute('data-tema');
+		var novo = atual === 'dark' ? 'light' : 'dark';
+		document.documentElement.setAttribute('data-tema', novo);
+		try { localStorage.setItem('tema', novo); } catch (e) {}
+		atualizarIconeTema();
+	}
+
+	atualizarIconeTema();
+
+	/* ---------- Áudio ---------- */
+
 	var audioAtual = null;
+
+	// Cria o áudio sem baixar o arquivo até realmente tocar (antes todos eram carregados a cada clique)
+	function criarAudio(src) {
+		var a = new Audio();
+		a.preload = 'none';
+		a.src = src;
+		return a;
+	}
 
 	function tocarAudio(audio) {
 		// Para qualquer áudio que esteja tocando
@@ -138,7 +273,14 @@ if ("serviceWorker" in navigator) {
 			audioAtual.currentTime = 0;
 		}
 		audio.currentTime = 0;
-		audio.play();
+		var p = audio.play();
+		if (p && p.catch) {
+			p.catch(function () {
+				// arquivo não encontrado ou navegador bloqueou o som
+				document.getElementById('btn-parar').style.display = 'none';
+				audioAtual = null;
+			});
+		}
 		audioAtual = audio;
 
 		// Mostra o botão de parar
@@ -160,32 +302,66 @@ if ("serviceWorker" in navigator) {
 		document.getElementById('btn-parar').style.display = 'none';
 	}
 
+	/* ---------- Lista de áudios (usada por "audios" e "áudios") ---------- */
+
+	var LISTA_AUDIOS = [
+		['Queima.mp3', '🔥 Queima'],
+		['Beat.mp3', '🥁 Beatbox'],
+		['Inst.mp3', '🃏 Instinto Superior'],
+		['redline.mp3', '🎵 Redline'],
+		['ui.mp3', '🔔 UI'],
+		['ze da manga.mp3', '🥭 Zé da Manga'],
+		['67.mp3', '6️⃣7️⃣ 67'],
+		['giga-chad-theme.mp3', '💪 Giga Chad'],
+		['PH.mp3', '😏 PH'],
+		['Los hermanos - Anna Júlia - Los Hermanos (youtube).mp3.mp3', '🎸 Anna Júlia'],
+		['kickbuttowski.mp3', '🛹 Kick Buttowski'],
+		['weare.mp3', '🏴‍☠️ We Are'],
+		['numb.mp3', '🎤 Numb'],
+		['theworldrevolving.mp3', '🤡 The World Revolving'],
+		['lula.mp3', '🕴️ Lula'],
+		['Michael Jackson - Billie Jean (Lyrics).mp3', '🎩 Billie Jean'],
+		['michael.mp3', '🎩 Michael Jackson'],
+		['explica.mp3', '🗣️ Já expliquei']
+	];
+
+	function listaAudios() {
+		var botoes = LISTA_AUDIOS.map(function (a) {
+			return '<button data-src="' + a[0] + '" onclick="tocarAudio(criarAudio(this.dataset.src))">' + a[1] + '</button>';
+		}).join('');
+		return '<b>Escolha qual áudio quer tocar:</b><br><br>' +
+			'<div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center">' + botoes + '</div>';
+	}
+
+	/* ---------- Sistema de nomes (mantido) ---------- */
+
 	function mostrarNome() {
-		var billiejean = new Audio('Michael Jackson - Billie Jean (Lyrics).mp3')
-		var queima = new Audio('Queima.mp3')
-    	var beatbox = new Audio('Beat.mp3')
-		var inst = new Audio('Inst.mp3')
+		var billiejean = criarAudio('Michael Jackson - Billie Jean (Lyrics).mp3')
+		var queima = criarAudio('Queima.mp3')
+		var beatbox = criarAudio('Beat.mp3')
+		var inst = criarAudio('Inst.mp3')
 		var nome = document.getElementById('nome').value.trim().toLowerCase()
 		var resposta = document.getElementById('resposta')
-		var audio = new Audio('redline.mp3')
-	    var ui = new Audio('ui.mp3')
-	    var zeDaManga = new Audio('ze da manga.mp3')
-	    var sixseven = new Audio('67.mp3')
-    	var gigachad = new Audio('giga-chad-theme.mp3')
-		var ph = new Audio('PH.mp3')
-		var annajulia = new Audio('Los hermanos - Anna Júlia - Los Hermanos (youtube).mp3.mp3')
-		var kickbuttowski = new Audio('kickbuttowski.mp3')
-		var weare = new Audio('weare.mp3')
-		var numb = new Audio('numb.mp3')
-		var jevil = new Audio('theworldrevolving.mp3')
-		var lula = new Audio('lula.mp3')
-		var michael = new Audio('michael.mp3')
-		var bolsonaro = new Audio('explica.mp3')
+		var audio = criarAudio('redline.mp3')
+		var ui = criarAudio('ui.mp3')
+		var zeDaManga = criarAudio('ze da manga.mp3')
+		var sixseven = criarAudio('67.mp3')
+		var gigachad = criarAudio('giga-chad-theme.mp3')
+		var ph = criarAudio('PH.mp3')
+		var annajulia = criarAudio('Los hermanos - Anna Júlia - Los Hermanos (youtube).mp3.mp3')
+		var kickbuttowski = criarAudio('kickbuttowski.mp3')
+		var weare = criarAudio('weare.mp3')
+		var numb = criarAudio('numb.mp3')
+		var jevil = criarAudio('theworldrevolving.mp3')
+		var lula = criarAudio('lula.mp3')
+		var michael = criarAudio('michael.mp3')
+		var bolsonaro = criarAudio('explica.mp3')
 
+		// Para o áudio anterior ao pesquisar outro nome
+		pararAudio()
 
 		if (nome === '') {
 			resposta.innerHTML = 'digita'
-			pararAudio()
 
 		} else if (nome === 'arthur') {
 			resposta.innerHTML = 'Você é muito viado e dá a bunda<br><img src="arthur.gif" style="display: block; margin: auto;">'
@@ -194,7 +370,7 @@ if ("serviceWorker" in navigator) {
 		} else if (nome === 'manoel') {
 			resposta.innerHTML = 'Você foi quem criou isso aqui, mas também é muito foda.'
 			tocarAudio(gigachad)
-			
+
 		} else if (nome === 'ana júlia') {
 			resposta.innerHTML = 'tanto faz, fodase'
 
@@ -280,43 +456,43 @@ if ("serviceWorker" in navigator) {
 			resposta.innerHTML = 'YOOOOOOOOOOOO<br><img src="sixseven.jpg" width="200">'
 			tocarAudio(sixseven)
 
-	    } else if (nome === 'ana clara') {
-			resposta.innerHTML = 'se for a irmã do jõao pedro, eu nao sei'		
-		
+		} else if (nome === 'ana clara') {
+			resposta.innerHTML = 'se for a irmã do jõao pedro, eu nao sei'
+
 		} else if (nome === 'douglas') {
 			resposta.innerHTML = 'beijo da clara'
 			tocarAudio(ui)
-		
+
 		} else if (nome === 'viado') {
 			resposta.innerHTML = 'se tu se chama viado, tu é viado, né?'
 			tocarAudio(zeDaManga)
-		
+
 		} else if (nome === 'guilherme') {
 			resposta.innerHTML = 'Segue o lider (que nao é mais lider kkkkkkkkk)'
 			tocarAudio(gigachad)
-			
+
 		} else if (nome === 'kaique') {
 			resposta.innerHTML = 'Todo Kaique é gente boa logo não é viado'
 			tocarAudio(beatbox)
-			
+
 		} else if (nome === 'matheus') {
 			resposta.innerHTML = 'Você é o maior viado, gay e a pessoa que mais da a bunda nessa terra<br><video src="Matheus-ezgif.com-gif-maker.mp4" controls width="200"></video>'
 			tocarAudio(queima)
-			
+
 		} else if (nome === 'ph') {
 			resposta.innerHTML = 'Tarado!'
 			tocarAudio(ph)
 
 		} else if (nome === 'ana luiza') {
 			var n = prompt('Insira sua mensagem')
-			resposta.innerHTML = n
+			if (n !== null) resposta.textContent = n
 
 		} else if (nome === 'eu') {
 			resposta.innerHTML = 'você deve ser completamente viado'
 
-        } else if (nome === 'italo') {
-            resposta.innerHTML = 'voltar a fazer animação ngm quer né';
-            window.open('https://www.youtube.com/@italothedraw')
+		} else if (nome === 'italo') {
+			resposta.innerHTML = 'voltar a fazer animação ngm quer né';
+			window.open('https://www.youtube.com/@italothedraw')
 
 		} else if (nome === 'yasmin') {
 			resposta.innerHTML = 'qual delas'
@@ -328,7 +504,6 @@ if ("serviceWorker" in navigator) {
 			resposta.innerHTML = 'rocknroll yes<br>(la abertura de kick buttowski começa)'
 			tocarAudio(kickbuttowski)
 
-			
 		} else if (nome === 'luffy') {
 			resposta.innerHTML = 'então voce quer ser rei dos piratas?'
 			tocarAudio(weare)
@@ -337,84 +512,46 @@ if ("serviceWorker" in navigator) {
 			resposta.innerHTML = 'Numb - Linkin Park'
 			tocarAudio(numb)
 
-       } else if (nome === 'audios') {
-    resposta.innerHTML = `
-        <b>Escolha qual áudio quer tocar:</b><br><br>
-        <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center">
-            <button onclick="tocarAudio(new Audio('Queima.mp3'))">🔥 Queima</button>
-            <button onclick="tocarAudio(new Audio('Beat.mp3'))">🥁 Beatbox</button>
-            <button onclick="tocarAudio(new Audio('Inst.mp3'))">🃏 Instinto Superior</button>
-            <button onclick="tocarAudio(new Audio('redline.mp3'))">🎵 Redline</button>
-            <button onclick="tocarAudio(new Audio('ui.mp3'))">🔔 UI</button>
-            <button onclick="tocarAudio(new Audio('ze da manga.mp3'))">🥭 Zé da Manga</button>
-            <button onclick="tocarAudio(new Audio('67.mp3'))">6️⃣7️⃣ 67</button>
-            <button onclick="tocarAudio(new Audio('giga-chad-theme.mp3'))">💪 Giga Chad</button>
-            <button onclick="tocarAudio(new Audio('PH.mp3'))">😏 PH</button>
-            <button onclick="tocarAudio(new Audio('Los hermanos - Anna Júlia - Los Hermanos (youtube).mp3.mp3'))">🎸 Anna Júlia</button>
-            <button onclick="tocarAudio(new Audio('kickbuttowski.mp3'))">🛹 Kick Buttowski</button>
-            <button onclick="tocarAudio(new Audio('weare.mp3'))">🏴‍☠️ We Are</button>
-            <button onclick="tocarAudio(new Audio('numb.mp3'))">🎤 Numb</button>
-			<button onclick="tocarAudio(new Audio('theworldrevolving.mp3'))">🤡 The World Revolving</button>
-			<button onclick="tocarAudio(new Audio('lula.mp3'))">🕴️ Lula</button>
-			<button onclick="tocarAudio(new Audio('michael.mp3'))">🎩 Michael Jackson</button>
-			<button onclick="tocarAudio(new Audio('explica.mp3'))">Já expliquei</button>
+		} else if (nome === 'audios') {
+			resposta.innerHTML = listaAudios()
 
-        </div>
-    `
+		} else if (nome === 'áudios') {
+			resposta.innerHTML = listaAudios()
 
-} else if (nome === 'áudios') {
-    resposta.innerHTML = `
-        <b>Escolha qual áudio quer tocar:</b><br><br>
-        <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center">
-            <button onclick="tocarAudio(new Audio('Queima.mp3'))">🔥 Queima</button>
-            <button onclick="tocarAudio(new Audio('Beat.mp3'))">🥁 Beatbox</button>
-            <button onclick="tocarAudio(new Audio('Inst.mp3'))">🃏 Instinto Superior</button>
-            <button onclick="tocarAudio(new Audio('redline.mp3'))">🎵 Redline</button>
-            <button onclick="tocarAudio(new Audio('ui.mp3'))">🔔 UI</button>
-            <button onclick="tocarAudio(new Audio('ze da manga.mp3'))">🥭 Zé da Manga</button>
-            <button onclick="tocarAudio(new Audio('67.mp3'))">6️⃣7️⃣ 67</button>
-            <button onclick="tocarAudio(new Audio('giga-chad-theme.mp3'))">💪 Giga Chad</button>
-            <button onclick="tocarAudio(new Audio('PH.mp3'))">😏 PH</button>
-            <button onclick="tocarAudio(new Audio('Los hermanos - Anna Júlia - Los Hermanos (youtube).mp3.mp3'))">🎸 Anna Júlia</button>
-            <button onclick="tocarAudio(new Audio('kickbuttowski.mp3'))">🛹 Kick Buttowski</button>
-            <button onclick="tocarAudio(new Audio('weare.mp3'))">🏴‍☠️ We Are</button>
-            <button onclick="tocarAudio(new Audio('numb.mp3'))">🎤 Numb</button>
-			<button onclick="tocarAudio(new Audio('theworldrevolving.mp3'))">🤡 The World Revolving</button>
-			<button onclick="tocarAudio(new Audio('lula.mp3'))">🕴️ Lula</button>
-			<button onclick="tocarAudio(new Audio('Michael Jackson - Billie Jean (Lyrics).mp3')">🎩 Billie jean</button>
-			<button onclick="tocarAudio(new Audio('michael.mp3'))">🎩 Michael Jackson</button>
-			<button onclick="tocarAudio(new Audio('explica.mp3'))">Já expliquei</button>
-        </div>
-    `
-
-	    } else if (nome === 'jevil') {
-         resposta.innerHTML = 'CHAOS CHAOS<br><img src="jevil.gif" style="display: block; margin: auto;">'
-          tocarAudio(jevil)
+		} else if (nome === 'jevil') {
+			resposta.innerHTML = 'CHAOS CHAOS<br><img src="jevil.gif" style="display: block; margin: auto;">'
+			tocarAudio(jevil)
 
 		} else if (nome === 'lula') {
-         resposta.innerHTML = 'Companheiros e companheiras vai todo mundo se fuder<br><img src="lula.png" width="200">'
-          tocarAudio(lula)
+			resposta.innerHTML = 'Companheiros e companheiras vai todo mundo se fuder<br><img src="lula.png" width="200">'
+			tocarAudio(lula)
 
 		} else if (nome === 'michael') {
-         resposta.innerHTML = 'isbilidin'
-          tocarAudio(michael)
+			resposta.innerHTML = 'isbilidin'
+			tocarAudio(michael)
+
 		} else if (nome === 'michael jackson') {
 			resposta.innerHTML = 'Hee-Hee<br><video src="moonwalk.mp4" controls width="200"></video>'
-			 tocarAudio(billiejean)
+			tocarAudio(billiejean)
+
 		} else if (nome === 'bolsonaro') {
 			resposta.innerHTML = 'Já expliquei<br><img src="Bolsonaro.png" width="200">'
 			tocarAudio(bolsonaro)
 
 		} else if (nome === 'mensagem') {
-            resposta.innerHTML = 'Redirecionando...';
-            window.open('https://mensagens-do-medidor-rho.vercel.app/')
-		
+			resposta.innerHTML = 'Redirecionando...';
+			window.open('https://mensagens-do-medidor-rho.vercel.app/')
+
 		} else {
 			resposta.innerHTML = 'Esse nome não se encontra em nossos sistema, tente mais tarde assim que atualizar'
 		}
 	}
-	</script>
 
+	/* ---------- Enviar com a tecla Enter ---------- */
+	document.getElementById('nome').addEventListener('keydown', function (e) {
+		if (e.key === 'Enter') mostrarNome();
+	});
+	</script>
 
 </body>
 </html>
